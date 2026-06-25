@@ -1,198 +1,202 @@
-// Proyecto de Sistemas Operativos: Implementación de un sistema de atención de emergencias UVI
 #include <iostream>
 #include <thread>
-#include <queue> // Incluye std::queue y std::priority_queue
+#include <queue>
 #include <string>
 #include <chrono>
 #include <fstream>
-#include <vector>
 
 using namespace std;
 
-// Estructura de la llamada recibida en la central de emergencias
-struct Llamada
-{
+//Estructura de la llamada recibida en la central de emergencias
+struct Llamada {
     int idLlamada;
     string lineaTelefonica;
     string zonaLlamada;
     string descripcionLlamada;
-    int prioridad; // 1: Baja, 2: Media, 3: Alta
-
-    // ordenea prioridad de MAYOR a MENOR prioridad (3 > 2 > 1)
-    bool operator<(const Llamada &otra) const
-    {
-        return prioridad < otra.prioridad;
-    }
 };
 
-// MODIFICADO: Las colas ahora son de prioridad (priority_queue)
-priority_queue<Llamada> colaHospital;
-priority_queue<Llamada> colaComisaría;
+//Colas de llamadas 
+queue<Llamada> colaHospital;
+queue<Llamada> colaComisaría;
+queue<Llamada> colaForense;
 
-// Variables a utilizar en Peterson
+
+//Variables a utilizar en Peterson
 bool bandera[2] = {false, false};
 int turno;
 
-// Contador a utilizar para el incremento de las llamadas en las colas
+//Contador a utilizar para el incremento de las llamadas en las colas
 int contadorID = 0;
 
-// Archivo para guardar el registro de las llamadas
+//Archivo para guardar el registro de las llamadas
 ofstream logFile("logs_uvi.txt", ios::app);
 
-// Estructura de datos para simular llamadas entrantes
-struct LlamadaSimulada
-{
-    string linea;
-    string zona;
-    string descripcion;
-    int prioridad; // 1: Baja, 2: Media, 3: Alta
-};
-
-// Banco de pruebas con múltiples llamadas simuladas
-vector<LlamadaSimulada> llamadasSimuladas = {
-    {"911-1111", "Zona Norte", "Accidente de transito", 1},
-    {"911-2222", "Zona Sur", "Robo", 2},
-    {"911-3333", "Zona Este", "Infarto", 3}, // Alta prioridad médica
-    {"911-4444", "Zona Oeste", "Asalto", 3}, // Alta prioridad policial
-    {"911-5555", "Centro", "Incendio doméstico", 2},
-    {"911-6666", "Zona Sur", "Pelea callejera (Robo)", 1}};
-
-// Metodos para la Sección Crítica (Algoritmo de Peterson)
-void entrarSeccionCritica(int i)
-{
+//Metodos para la Sección Crítica
+void entrarSeccionCritica(int i){
     int j = 1 - i;
     bandera[i] = true;
     turno = j;
-    while (bandera[j] && turno == j)
-        ;
+    while(bandera[j] && turno == j);
 }
 
-void salirSeccionCritica(int i)
-{
+void salirSeccionCritica(int i){
     bandera[i] = false;
 }
 
-void registrar(string text)
-{
+//Función para ingresar los registros al archivo de texto
+void registrar(string text){
     logFile << text << endl;
     logFile.flush();
 }
 
-// Método para la central de llamadas UVI
-void centralUVI(int op)
-{
-    // El operador '0' toma las llamadas pares, el operador '1' toma las impares
-    for (size_t i = op; i < llamadasSimuladas.size(); i += 2)
-    {
+//Metodo para la central de llamadas UVI
+void centralUVI(int op){
+    for(int i = 0; i < 2; i++){
+        
         Llamada call;
-        call.lineaTelefonica = llamadasSimuladas[i].linea;
-        call.zonaLlamada = llamadasSimuladas[i].zona;
-        call.descripcionLlamada = llamadasSimuladas[i].descripcion;
-        call.prioridad = llamadasSimuladas[i].prioridad;
-
-        // SECCIÓN CRÍTICA: Acceso a contadorID y a las Colas globales
         entrarSeccionCritica(op);
+
+        cout << "\nOperador " << op << endl;
+        cout << "Linea: "; getline(cin, call.lineaTelefonica);
+        cout << "Zona: "; getline(cin, call.zonaLlamada);
+        cout << "Descripcion: "; getline(cin, call.descripcionLlamada);
 
         contadorID++;
         call.idLlamada = contadorID;
 
-        string registroDeLlamada =
-            "[UVI - Op " + to_string(op) + "] ID: " + to_string(call.idLlamada) +
-            " | Línea: " + call.lineaTelefonica +
-            " | Zona: " + call.zonaLlamada +
-            " | Prioridad: " + to_string(call.prioridad) +
-            " | Tipo: " + call.descripcionLlamada;
+        string registroDeLlamada = 
+        "[UVI] ID: " + to_string(call.idLlamada) + 
+        " | Línea Telefónica: " + call.lineaTelefonica + 
+        " | Zona de la llamada: " + call.zonaLlamada;
 
-        cout << "\nREGISTRANDO LLAMADA: " << registroDeLlamada << endl;
+        cout << "\nREGISTRANDO LLAMADA: " << registroDeLlamada;
         registrar(registroDeLlamada);
 
-        if (call.descripcionLlamada.find("Robo") != string::npos ||
-            call.descripcionLlamada.find("Asalto") != string::npos)
-        {
-            colaComisaría.push(call); // Se inserta y auto-ordena por prioridad
-            registrar("[UVI] ID " + to_string(call.idLlamada) + " -> Comisaria (Prio: " + to_string(call.prioridad) + ")");
-            cout << "[UVI] Enviado a la Comisaría (Prio: " << call.prioridad << ")" << endl;
-        }
-        else
-        {
-            colaHospital.push(call); // Se inserta y auto-ordena por prioridad
-            registrar("[UVI] ID " + to_string(call.idLlamada) + " -> Hospital (Prio: " + to_string(call.prioridad) + ")");
-            cout << "[UVI] Enviado a Hospital (Prio: " << call.prioridad << ")" << endl;
+        if(call.descripcionLlamada == "Robo" ||
+            call.descripcionLlamada == "Asalto"){
+            colaComisaría.push(call);
+            registrar("[UVI] ID " + to_string(call.idLlamada) + 
+            " -> Comisaria");
+            cout << "\nEnviado a la Comisaría";
+        }else if(call.descripcionLlamada == "Homicidio"){
+            colaForense.push(call);
+            registrar("[UVI] ID " + to_string(call.idLlamada) + 
+            " -> Forense");
+            cout << "\nEnviado a Forense";
+        }else{
+            colaHospital.push(call);
+             registrar("[UVI] ID " + to_string(call.idLlamada) + 
+            " -> Hospital");
+            cout << "\nEnviado a Hospital";
         }
 
         salirSeccionCritica(op);
 
-        // Simulamos un pequeño retraso entre la recepción de llamadas
-        this_thread::sleep_for(chrono::milliseconds(200));
+        this_thread::sleep_for(chrono::milliseconds(300));
     }
 }
 
-// Método para la recepción de las llamadas en el Hospital
-void recepcionHospital()
-{
-    while (true)
-    {
-        if (!colaHospital.empty())
-        {
-            // MODIFICADO: En priority_queue se extrae con .top() en lugar de .front()
-            Llamada llamada = colaHospital.top();
+//Método para la recepción de las llamadas en el Hospital
+void recepcionHospital(){
+    while(true){
+        if(!colaHospital.empty()){
+            entrarSeccionCritica(0);
+            Llamada llamada = colaHospital.front();
             colaHospital.pop();
+            salirSeccionCritica(0);
 
-            string mensaje = "[Hospital] ID: " + to_string(llamada.idLlamada) +
-                             " [Prioridad: " + to_string(llamada.prioridad) + "] | Ambulancia enviada";
-            cout << "\n>>> ATENCIÓN HOSPITAL: " << mensaje << endl;
-            registrar(mensaje);
+            string mensaje =
+                "[Hospital] ID: " + to_string(llamada.idLlamada) + 
+                " | Ambulancia enviada";
+            cout << "\n" << mensaje;
+            registrar(mensaje);    
         }
-        this_thread::sleep_for(chrono::milliseconds(600));
+        this_thread::sleep_for(chrono::milliseconds(500));
     }
 }
 
-// Método para la recepción de las llamadas en la Comisaría
-void recepcionComisaria()
-{
-    while (true)
-    {
-        if (!colaComisaría.empty())
-        {
-            // MODIFICADO: En priority_queue se extrae con .top() en lugar de .front()
-            Llamada llamada = colaComisaría.top();
+//Método para la recepción de las llamadas en la Comisaría
+void recepcionComisaria(){
+    while(true){
+        if(!colaComisaría.empty()){
+            entrarSeccionCritica(1);
+            Llamada llamada = colaComisaría.front();
             colaComisaría.pop();
+            salirSeccionCritica(1);
 
-            string mensaje = "[Comisaria] ID: " + to_string(llamada.idLlamada) +
-                             " [Prioridad: " + to_string(llamada.prioridad) + "] | Patrulla enviada";
-            cout << "\n>>> ATENCIÓN POLICÍA: " << mensaje << endl;
-            registrar(mensaje);
+            string mensaje =
+                "[Comisaria] ID: " + to_string(llamada.idLlamada) + 
+                " | Patrulla enviada";
+            cout << "\n" << mensaje;
+            registrar(mensaje);    
         }
-        this_thread::sleep_for(chrono::milliseconds(600));
+        this_thread::sleep_for(chrono::milliseconds(500));
     }
 }
 
-int main()
-{
-    registrar("===== Inicio del Sistema UVI ====");
-    cout << "=== SIMULACIÓN DE CENTRAL UVI CON PRIORIDADES INICIADA ===\n";
+//Cola y variables propias para la sección crítica con Dekker (Forense)
+bool banderaDekker[2] = {false, false};
+int turnoDekker = 0;
+ 
+//Métodos para la Sección Crítica usando el algoritmo de Dekker
+void entrarSeccionCriticaDekker(int i){
+    int j = 1 - i;
+    banderaDekker[i] = true;
+    while(banderaDekker[j]){
+        if(turnoDekker == j){
+            banderaDekker[i] = false;
+            while(turnoDekker == j);
+            banderaDekker[i] = true;
+        }
+    }
+}
+ 
+void salirSeccionCriticaDekker(int i){
+    turnoDekker = 1 - i;
+    banderaDekker[i] = false;
+}
+ 
+//Método para la recepción de las llamadas en Forense (usando Dekker)
+void recepcionForense(){
+    while(true){
+        if(!colaForense.empty()){
+            entrarSeccionCriticaDekker(0);
+            Llamada llamada = colaForense.front();
+            colaForense.pop();
+            salirSeccionCriticaDekker(0);
+ 
+            string mensaje =
+                "[Forense] ID: " + to_string(llamada.idLlamada) + 
+                " | Equipo forense enviado";
+            cout << "\n" << mensaje;
+            registrar(mensaje);    
+        }
+        this_thread::sleep_for(chrono::milliseconds(500));
+    }
+}
 
-    // Creamos los hilos de los operadores
+//Método principal
+int main(){
+    registrar("===== Inicio del Sistema UVI ====");
     thread t1(centralUVI, 0);
     thread t2(centralUVI, 1);
-
-    // Creamos los hilos de despacho
     thread hospital(recepcionHospital);
     thread comisaria(recepcionComisaria);
+    thread forense(recepcionForense);
 
-    // Esperamos a que ambos operadores terminen de procesar el banco de llamadas
+
     t1.join();
     t2.join();
 
-    // Damos un breve tiempo para que los despachos terminen de procesar lo que quede en cola
-    this_thread::sleep_for(chrono::seconds(3));
-
-    // Forzamos el cierre de los hilos de fondo de forma segura en la simulación
     hospital.detach();
     comisaria.detach();
+    forense.detach();
 
     registrar("===== Final del Sistema UVI ====");
-    cout << "\n=== Sistema Finalizado con Éxito ===\n";
+
+    cout << "\nSistema FInalizado\n";
 
     return 0;
+
+
 }
