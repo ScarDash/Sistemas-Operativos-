@@ -125,3 +125,27 @@
 [Comisaria] ID: 5 [Prioridad: 1] | Patrulla enviada
 [Hospital] ID: 2 [Prioridad: 1] | Ambulancia enviada
 ===== Final del Sistema UVI ====
+===== Inicio del Sistema UVI ====
+[UVI] ID: 1 | Línea Telefónica:  | Zona de la llamada: sas
+[UVI] ID 1 -> Hospital
+[Hospital] ID: 1 | Ambulancia enviada
+[UVI] ID: 2 | Línea Telefónica:  | Zona de la llamada: tigo
+[UVI] ID 2 -> Hospital
+[Hospital] ID: 2 | Ambulancia enviada
+[UVI] ID: 3 | Línea Telefónica: nose | Zona de la llamada: 
+[UVI] ID 3 -> Hospital
+===== Inicio del Sistema UVI ====
+[UVI] ID: 1 | Línea Telefónica: 98117398 | Zona de la llamada: Z SurZona sur
+[UVI] ID 1 -> Hospital
+[Hospital] ID: 1 | Ambulancia enviada
+[UVI] ID: 2 | Línea Telefónica: homicidio | Zona de la llamada: 
+[UVI] ID 2 -> Hospital
+[Hospital] ID: 2 | Ambulancia enviada
+===== Inicio del Sistema UVI ====
+[UVI] ID: 1 | Línea Telefónica:  | Zona de la llamada: ZHomicidio
+[UVI] ID 1 -> Hospital
+[Hospital] ID: 1 | Ambulancia enviada
+===== Inicio del Sistema UVI ====
+[UVI] ID: 1 | Línea Telefónica: 98117398 | Zona de la llamada: Zona Sur
+[UVI] ID 1 -> Forense
+[Forense] ID: 1 | Equipo forense enviado
