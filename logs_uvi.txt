@@ -149,3 +149,64 @@
 [UVI] ID: 1 | Línea Telefónica: 98117398 | Zona de la llamada: Zona Sur
 [UVI] ID 1 -> Forense
 [Forense] ID: 1 | Equipo forense enviado
+===== Inicio del Sistema UVI ====
+===== Inicio del Sistema UVI ====
+[UVI] ID: 1 | Línea Telefónica: 2 | Zona de la llamada: zona sur
+[UVI] ID 1 -> Hospital
+[UVI] ID: 2 | Línea Telefónica: 2 | Zona de la llamada: norte 
+[UVI] ID 2 -> Hospital
+[Hospital] ID: 1 | Ambulancia enviada
+[UVI] ID: 3 | Línea Telefónica: muerte | Zona de la llamada: norte
+[UVI] ID 3 -> Hospital
+[Hospital] ID: 2 | Ambulancia enviada
+[Hospital] ID: 3 | Ambulancia enviada
+===== Inicio del Sistema UVI ====
+[UVI - Op 1] ID: 1 | Línea: 911-2222 | Zona: Zona Sur | Prioridad: 2 | Tipo: Robo
+[UVI] ID 1 -> Comisaria (Prio: 2)
+[UVI - Op 0] ID: 2 | Línea: 911-1111 | Zona: Zona Norte | Prioridad: 1 | Tipo: Accidente de transito
+[UVI] ID 2 -> Hospital (Prio: 1)
+[UVI - Op 1] ID: 3 | Línea: 911-4444 | Zona: Zona Oeste | Prioridad: 3 | Tipo: Asalto
+[UVI] ID 3 -> Comisaria (Prio: 3)
+[UVI - Op 0] ID: 4 | Línea: 911-3333 | Zona: Zona Este | Prioridad: 3 | Tipo: Infarto
+[UVI] ID 4 -> Hospital (Prio: 3)
+[UVI - Op 0] ID: 5 | Línea: 911-5555 | Zona: Centro | Prioridad: 2 | Tipo: Incendio doméstico
+[UVI] ID 5 -> Hospital (Prio: 2)
+[UVI - Op 1] ID: 6 | Línea: 911-6666 | Zona: Zona Sur | Prioridad: 1 | Tipo: Pelea callejera (Robo)
+[UVI] ID 6 -> Comisaria (Prio: 1)
+[Hospital] ID: 4 [Prioridad: 3] | Ambulancia enviada
+[Comisaria] ID: 3 [Prioridad: 3] | Patrulla enviada
+[Hospital] ID: 5 [Prioridad: 2] | Ambulancia enviada
+[Comisaria] ID: 1 [Prioridad: 2] | Patrulla enviada
+[Hospital] ID: 2 [Prioridad: 1] | Ambulancia enviada
+[Comisaria] ID: 6 [Prioridad: 1] | Patrulla enviada
+===== Final del Sistema UVI ====
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Baja, zona Urbana
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Baja, zona Urbana
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Media, zona Urbana
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Media, zona Urbana
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Baja, zona Rural
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Baja, zona Rural
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Alta, zona Rural
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Alta, zona Rural
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Baja, zona Rural
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Baja, zona Rural
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Baja, zona Urbana
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Baja, zona Urbana
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Alta, zona Urbana
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Alta, zona Urbana
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Media, zona Urbana
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Media, zona Urbana
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Media, zona Urbana
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Media, zona Urbana
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Alta, zona Rural
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Alta, zona Rural
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Alta, zona Urbana, refuerzos: Sí, central: Comisaria, incidente: Enfermedad
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Alta, zona Urbana, refuerzos: Sí, central: Comisaria, incidente: Enfermedad
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Baja, zona Rural, refuerzos: No, central: Forense, incidente: Muerte
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Baja, zona Rural, refuerzos: No, central: Forense, incidente: Muerte
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Media, zona Urbana, refuerzos: Sí, central: Forense, incidente: Muerte
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Media, zona Urbana, refuerzos: Sí, central: Forense, incidente: Muerte
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Media, zona Urbana, refuerzos: Sí, central: Forense, incidente: Accidente
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Media, zona Urbana, refuerzos: Sí, central: Forense, incidente: Accidente
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Media, zona Rural, refuerzos: No, central: Comisaria, incidente: Accidente
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Media, zona Rural, refuerzos: No, central: Comisaria, incidente: Accidente
