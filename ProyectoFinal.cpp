@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <cstring>
+#include <queue>
 
 using namespace std;
 
@@ -20,7 +21,9 @@ union semun
     unsigned short *array;
 };
 // Archivo de salida para registrar las llamadas de emergencia
+
 ofstream RecursoCompartido;
+// no implementado todavia
 
 // REGLAS DEL SEMAFORO PARA EL PROCESO DE REGISTRO DE LLAMADAS DE EMERGENCIA
 void sem_wait(int semid, int sem_num)
@@ -42,18 +45,33 @@ string generarLlamadaAleatoria(int operador)
     const string tipos[] = {"Nacional", "Internacional"};
     const string zonas[] = {"Urbana", "Rural"};
     const string refuerzos[] = {"Sí", "No"};
-    const string centrales[] = {"Comisaria", "Hospital", "Forense"};
     const string incidentes[] = {"Accidente", "Crimen", "Enfermedad", "Muerte"};
-
+    const string centrales[] = {"Comisaria", "Hospital", "Forense"};
     int p = rand() % 3;
     int t = rand() % 2;
     int z = rand() % 2;
     int r = rand() % 2;
-    int c = rand() % 3;
-    int i = rand() % 4;
+    int c = rand() % 4;
+
+    if (c == 0) // Accidente
+    {
+        cout << "Se requiere la presencia de la central de " << centrales[1] << endl; // Hospital
+    }
+    else if (c == 1) // Crimen
+    {
+        cout << "Se requiere la presencia de la central de " << centrales[0] << endl; // Comisaria
+    }
+    else if (c == 2) // Enfermedad
+    {
+        cout << "Se requiere la presencia de la central de " << centrales[1] << endl; // Hospital
+    }
+    else if (c == 3) // Muerte
+    {
+        cout << "Se requiere la presencia de la central de " << centrales[2] << endl; // Forense
+    }
 
     return "Operador " + to_string(operador) + " registró una llamada " + tipos[t] +
-           " de prioridad " + prioridades[p] + ", zona " + zonas[z] + ", refuerzos: " + refuerzos[r] + ", central: " + centrales[c] + ", incidente: " + incidentes[i];
+           " de prioridad " + prioridades[p] + ", zona " + zonas[z] + ", refuerzos: " + refuerzos[r] + ", central: " + centrales[c] + ", incidente: " + incidentes[c];
 }
 
 enum Centrales
@@ -152,6 +170,7 @@ int main()
         return 1;
     }
 
+    // Inicialización de los semáforos
     union semun init;
     init.val = 1;
     semctl(sem_id, 0, SETVAL, init);
