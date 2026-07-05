@@ -1,11 +1,11 @@
 
-
 #include <sys/sem.h> // semget, semctl, semop
-#include <iostream>
-#include <sys/errno.h> // para errores
-#include <sys/ipc.h>   // para IPC
+#include <sys/shm.h> // shmget, shmat, shmdt, shmctl
+#include <sys/ipc.h> // IPC
+#include <sys/errno.h>
 #include <wait.h>
-#include <unistd.h> // para fork
+#include <unistd.h>
+#include <iostream>
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
@@ -14,18 +14,18 @@
 
 using namespace std;
 
+// --- CONFIGURACIÓN DE SEMÁFOROS (ÍNDICES) ---
+#define SEM_COLA 0    // Controla el acceso a la cola de prioridad general
+#define SEM_MONITOR 1 // Controla la exclusión mutua dentro del Monitor
+
 union semun
 {
     int val;
     struct semid_ds *buf;
     unsigned short *array;
 };
-// Archivo de salida para registrar las llamadas de emergencia
 
-ofstream RecursoCompartido;
-// no implementado todavia
-
-// REGLAS DEL SEMAFORO PARA EL PROCESO DE REGISTRO DE LLAMADAS DE EMERGENCIA
+// REGLAS DEL SEMAFORO NATIVAS
 void sem_wait(int semid, int sem_num)
 {
     struct sembuf operacion = {(unsigned short)sem_num, -1, 0};
@@ -38,180 +38,343 @@ void sem_signal(int semid, int sem_num)
     semop(semid, &operacion, 1);
 }
 
-// Simulación de la generación de llamadas de emergencia aleatorias
-string generarLlamadaAleatoria(int operador)
-{
-    const string prioridades[] = {"Alta", "Media", "Baja"};
-    const string tipos[] = {"Nacional", "Internacional"};
-    const string zonas[] = {"Urbana", "Rural"};
-    const string refuerzos[] = {"Sí", "No"};
-    const string incidentes[] = {"Accidente", "Crimen", "Enfermedad", "Muerte"};
-    const string centrales[] = {"Comisaria", "Hospital", "Forense"};
-    int p = rand() % 3;
-    int t = rand() % 2;
-    int z = rand() % 2;
-    int r = rand() % 2;
-    int c = rand() % 4;
-
-    if (c == 0) // Accidente
-    {
-        cout << "Se requiere la presencia de la central de " << centrales[1] << endl; // Hospital
-    }
-    else if (c == 1) // Crimen
-    {
-        cout << "Se requiere la presencia de la central de " << centrales[0] << endl; // Comisaria
-    }
-    else if (c == 2) // Enfermedad
-    {
-        cout << "Se requiere la presencia de la central de " << centrales[1] << endl; // Hospital
-    }
-    else if (c == 3) // Muerte
-    {
-        cout << "Se requiere la presencia de la central de " << centrales[2] << endl; // Forense
-    }
-
-    return "Operador " + to_string(operador) + " registró una llamada " + tipos[t] +
-           " de prioridad " + prioridades[p] + ", zona " + zonas[z] + ", refuerzos: " + refuerzos[r] + ", central: " + centrales[c] + ", incidente: " + incidentes[c];
-}
-
+// --- ENUMS ORIGINALES ---
 enum Centrales
 {
-    COMISARIA = 1 << 0, // 1  (0001)
-    HOSPITAL = 1 << 1,  // 2  (0010)
-    FORENSE = 1 << 2,   // 4  (0100)
-
+    COMISARIA = 1 << 0,
+    HOSPITAL = 1 << 1,
+    FORENSE = 1 << 2
 };
-
-string nombre_centrales[] = {"Comisaria", "Hospital", "Forense"};
 enum Incidentes
 {
     ACCIDENTE,
     CRIMEN,
     ENFERMEDAD,
-    MUERTE
+    MUERTE,
+    ROBO,
+    ASESINATO,
+    HERIDO,
+    PERSECUCION,
+    FALSA_ALARMA
 };
-string nombre_incidentes[] = {"Accidente", "Crimen", "Enfermedad", "Muerte"};
 enum Prioridad
 {
     ALTA,
     MEDIA,
-    BAJA
+    BAJA,
+    FALSA_ALARMA_P
 };
-string nombre_prioridad[] = {"Alta", "Media", "Baja"};
-
 enum Linea
 {
     CLARO,
     TIGO,
     HONDUTEL
 };
-string nombre_linea[] = {"Claro", "Tigo", "Hondutel"};
-
 enum TipoLlamada
 {
     Nacional,
     Internacional
-
 };
-string nombre_tipo_llamada[] = {"Nacional", "Internacional"};
-
 enum zona
 {
     rural,
     urbana
 };
-string nombre_zona[] = {"Rural", "Urbana"};
-
 enum refuerzos
 {
     SI,
     NO
 };
+
+// MAPEO PARA IMPRESIÓN en CONSOLA
+string nombre_centrales[] = {"Comisaria", "Hospital", "Forense"};
+string nombre_incidentes[] = {"Accidente", "Crimen", "Enfermedad", "Muerte", "Robo", "Asesinato", "Herido", "Persecución", "Falsa Alarma"};
+string nombre_prioridad[] = {"Alta", "Media", "Baja", "Falsa Alarma"};
+string nombre_linea[] = {"Claro", "Tigo", "Hondutel"};
+string nombre_tipo_llamada[] = {"Nacional", "Internacional"};
+string nombre_zona[] = {"Rural", "Urbana"};
 string nombre_refuerzos[] = {"Sí", "No"};
 
+// Estructura de la llamada
 struct Llamada
 {
     int id;
     Prioridad prioridad;
-    unsigned int Centrales = 0;
-    string descripcion;
+    unsigned int Centralesbits;
+    char descripcion[150];
     TipoLlamada tipo;
-    string descripcion_llamada;
     Linea linea_telefonica;
     zona zona_llamada;
-    refuerzos refuerzos_llamada; // La central registra a comsiaria, hospital y forense si es necesario llevar mas de una unidad de refuerzo a la escena del incidente.
+    refuerzos refuerzos_llamada;
+
+    // implementa prioridad de la llamada viendo la llamada actual con la otra llamada
+    bool operator<(const Llamada &otra) const
+    {
+        return this->prioridad > otra.prioridad;
+    }
 };
 
-int main()
+// --- MONITOR DE CENTRALES (Alojado en MEMORIA COMPARTIDA) ---
+struct MonitorCentrales
 {
-    cout << "Bienvenido al sistema de registro de llamadas de emergencia" << endl;
+    Llamada historialComisaria[50];
+    int sizeComisaria = 0;
 
-    // Codigo que garantiza los numeros aleatorios diferentes en cada ejecucion del programa
-    srand(static_cast<unsigned>(time(nullptr)));
+    Llamada historialHospital[50];
+    int sizeHospital = 0;
 
-    RecursoCompartido.open("logs_uvi.txt", ios::app);
-    if (!RecursoCompartido.is_open())
+    Llamada historialForense[50];
+    int sizeForense = 0;
+
+    void procesarLlamada(Llamada llamada, int operadorId, int sem_id, ofstream &archivoLog)
     {
-        cerr << "No se pudo abrir el archivo logs_uvi.txt" << endl;
-        return 1;
-    }
+        sem_wait(sem_id, SEM_MONITOR);
 
-    key_t clave = ftok("/bin", 65);
-    if (clave == -1)
-    {
-        cerr << "Error al generar la clave unica" << endl;
-        return 1;
-    }
-
-    int sem_id = semget(clave, 2, 0666 | IPC_CREAT);
-    if (sem_id == -1)
-    {
-        cerr << "Error al crear el semáforo" << endl;
-        return 1;
-    }
-
-    // Inicialización de los semáforos
-    union semun init;
-    init.val = 1;
-    semctl(sem_id, 0, SETVAL, init);
-    init.val = 0;
-    semctl(sem_id, 1, SETVAL, init);
-
-    pid_t pid = fork();
-    if (pid == 0)
-    {
-        for (int i = 0; i < 5; ++i)
+        // SI ES INTERNACIONAL SE DESCARTA ---
+        if (llamada.tipo == Internacional)
         {
-            sem_wait(sem_id, 1); // Espera a que el operador 1 registre la llamada
+            string descarte = "[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: " + to_string(llamada.id) +
+                              " | Operador: " + to_string(operadorId) + ") - No califica como emergencia nacional.";
 
-            string texto = generarLlamadaAleatoria(2);
-            RecursoCompartido << "[Operador 2] " << texto << endl;
-            RecursoCompartido.flush();
-            cout << "[Operador 2] registrando llamada" << endl;
+            if (archivoLog.is_open())
+            {
+                archivoLog << descarte << endl;
+                archivoLog.flush();
+            }
+            cout << "\033[1;31m" << descarte << "\033[0m" << endl; // Imprime en rojo en la terminal
 
-            sem_signal(sem_id, 0);
-            sleep(1);
+            sem_signal(sem_id, SEM_MONITOR);
+            return; // Salimos de la función sin agregar la llamada a los arreglos
         }
+
+        // --- SI ES NACIONAL, CONTINÚA EL PROCESO NORMAL ---
+        string registro = "[Operador " + to_string(operadorId) + "] Procesó ID: " + to_string(llamada.id) +
+                          " | Tipo: " + nombre_tipo_llamada[llamada.tipo] +
+                          " | Prioridad: " + nombre_prioridad[llamada.prioridad] +
+                          " | " + llamada.descripcion + " | ENVIANDO A: ";
+
+        if (llamada.Centralesbits & COMISARIA)
+        {
+            if (sizeComisaria < 50)
+                historialComisaria[sizeComisaria++] = llamada;
+            registro += "[Comisaria] ";
+        }
+        if (llamada.Centralesbits & HOSPITAL)
+        {
+            if (sizeHospital < 50)
+                historialHospital[sizeHospital++] = llamada;
+            registro += "[Hospital] ";
+        }
+        if (llamada.Centralesbits & FORENSE)
+        {
+            if (sizeForense < 50)
+                historialForense[sizeForense++] = llamada;
+            registro += "[Forense] ";
+        }
+
+        if (archivoLog.is_open())
+        {
+            archivoLog << registro << endl;
+            archivoLog.flush();
+        }
+        cout << registro << endl;
+
+        sem_signal(sem_id, SEM_MONITOR);
+    }
+
+    void mostrarEstadisticas()
+    {
+        cout << "\n=============================================" << endl;
+        cout << "   ESTADÍSTICAS FINALES DEL MONITOR (SHM)" << endl;
+        cout << "   (Solo Emergencias Nacionales Atendidas)   " << endl;
+        cout << "=============================================" << endl;
+        cout << "Total llamadas registradas en Comisaría: " << sizeComisaria << endl;
+        cout << "Total llamadas registradas en Hospital:  " << sizeHospital << endl;
+        cout << "Total llamadas registradas en Forense:   " << sizeForense << endl;
+        cout << "=============================================" << endl;
+    }
+};
+
+// asigna prioridad y centrales a la llamada
+Prioridad asignarPrioridadYCentrales(Incidentes incidente, unsigned int &centrales)
+{
+    switch (incidente)
+    {
+    case ACCIDENTE:
+        centrales = HOSPITAL | COMISARIA;
+        return ALTA;
+    case ROBO:
+    case PERSECUCION:
+        centrales = COMISARIA;
+        return ALTA;
+    case ASESINATO:
+    case MUERTE:
+        centrales = COMISARIA | FORENSE;
+        return ALTA;
+    case CRIMEN:
+        centrales = COMISARIA;
+        return MEDIA;
+    case HERIDO:
+        centrales = HOSPITAL;
+        return MEDIA;
+    case ENFERMEDAD:
+        centrales = HOSPITAL;
+        return BAJA;
+    default:
+        centrales = COMISARIA;
+        return FALSA_ALARMA_P;
+    }
+}
+
+Llamada generarLlamadaAleatoria(int id)
+{
+    int i = rand() % 9;
+    unsigned int deptoCentral = 0;
+    Prioridad p = asignarPrioridadYCentrales(static_cast<Incidentes>(i), deptoCentral);
+
+    Llamada ll;
+    ll.id = id;
+    ll.prioridad = p;
+    ll.Centralesbits = deptoCentral;
+    int probabilidadTipo = rand() % 10; // Genera un número de 0 a 9
+    if (probabilidadTipo < 9)
+    {
+        ll.tipo = Nacional; // 90% de los casos (0, 1, 2, 3, 4, 5, 6, 7, 8)
     }
     else
     {
-        for (int i = 0; i < 5; ++i)
+        ll.tipo = Internacional; // 10% de los casos ( 9)
+    }
+
+    ll.linea_telefonica = static_cast<Linea>(rand() % 3);
+    ll.zona_llamada = static_cast<zona>(rand() % 2);
+    ll.refuerzos_llamada = static_cast<refuerzos>(rand() % 2);
+
+    string desc = "Incidente: " + nombre_incidentes[i] + " (Línea: " + nombre_linea[ll.linea_telefonica] + ")";
+    strncpy(ll.descripcion, desc.c_str(), sizeof(ll.descripcion));
+
+    return ll;
+}
+
+int main()
+{
+    cout << "BIENVENIDO AL SISTEMA DE EMERGENCIAS UVI UNAH" << endl;
+    cout << "----------------------------------------------------------------------" << endl;
+
+    srand(static_cast<unsigned>(time(nullptr)));
+
+    ofstream RecursoCompartido("logs_uvi.txt", ios::app);
+    if (!RecursoCompartido.is_open())
+    {
+        cerr << "Error al abrir el archivo de logs." << endl;
+        return 1;
+    }
+
+    key_t clave_sem = ftok("/bin", 65);
+    key_t clave_shm = ftok("/bin", 66);
+
+    int sem_id = semget(clave_sem, 2, 0666 | IPC_CREAT);
+    int shm_id = shmget(clave_shm, sizeof(MonitorCentrales), 0666 | IPC_CREAT);
+
+    if (sem_id == -1 || shm_id == -1)
+    {
+        cerr << "Error al inicializar los recursos IPC del sistema." << endl;
+        return 1;
+    }
+
+    union semun init;
+    init.val = 1;
+    semctl(sem_id, SEM_COLA, SETVAL, init);
+    semctl(sem_id, SEM_MONITOR, SETVAL, init);
+
+    MonitorCentrales *monitor = (MonitorCentrales *)shmat(shm_id, NULL, 0);
+    monitor->sizeComisaria = 0;
+    monitor->sizeHospital = 0;
+    monitor->sizeForense = 0;
+
+    priority_queue<Llamada> colaPrioridadGeneral;
+
+    pid_t pid = fork();
+
+    if (pid == -1)
+    {
+        cerr << "Error al ejecutar fork." << endl;
+        return 1;
+    }
+
+    if (pid == 0)
+    {
+        // operador 2
+        for (int i = 0; i < 10; ++i)
         {
-            sem_wait(sem_id, 0); // Espera a que el operador 2 registre la llamada antes de registrar la suya
+            Llamada nuevaLlamada;
 
-            string texto = generarLlamadaAleatoria(1);
-            RecursoCompartido << "[Operador 1] " << texto << endl;
-            RecursoCompartido.flush();
-            cout << "[Operador 1] registrando llamada" << endl;
+            sem_wait(sem_id, SEM_COLA);
+            nuevaLlamada = generarLlamadaAleatoria(rand() % 9000 + 1000);
+            colaPrioridadGeneral.push(nuevaLlamada);
+            sem_signal(sem_id, SEM_COLA);
 
-            sem_signal(sem_id, 1);
+            usleep(100000);
+
+            sem_wait(sem_id, SEM_COLA);
+            if (!colaPrioridadGeneral.empty())
+            {
+                Llamada ll = colaPrioridadGeneral.top();
+                colaPrioridadGeneral.pop();
+                sem_signal(sem_id, SEM_COLA);
+
+                monitor->procesarLlamada(ll, 2, sem_id, RecursoCompartido);
+            }
+            else
+            {
+                sem_signal(sem_id, SEM_COLA);
+            }
+
+            sleep(1);
+        }
+        shmdt(monitor);
+        exit(0);
+    }
+    else
+    {
+        for (int i = 0; i < 10; ++i)
+        {
+            Llamada nuevaLlamada;
+
+            sem_wait(sem_id, SEM_COLA);
+            nuevaLlamada = generarLlamadaAleatoria(rand() % 9000 + 1000);
+            colaPrioridadGeneral.push(nuevaLlamada);
+            sem_signal(sem_id, SEM_COLA);
+
+            usleep(100000);
+
+            sem_wait(sem_id, SEM_COLA);
+            if (!colaPrioridadGeneral.empty())
+            {
+                Llamada ll = colaPrioridadGeneral.top();
+                colaPrioridadGeneral.pop();
+                sem_signal(sem_id, SEM_COLA);
+
+                monitor->procesarLlamada(ll, 1, sem_id, RecursoCompartido);
+            }
+            else
+            {
+                sem_signal(sem_id, SEM_COLA);
+            }
+
             sleep(1);
         }
 
         wait(nullptr);
+
+        monitor->mostrarEstadisticas();
+
         RecursoCompartido.close();
+        shmdt(monitor);
+        shmctl(shm_id, IPC_RMID, NULL);
         semctl(sem_id, 0, IPC_RMID);
-        cout << "Proceso finalizado. Revise el archivo logs_uvi.txt" << endl;
+
+        cout << "Proceso e IPCs finalizados limpiamente." << endl;
     }
 
     return 0;

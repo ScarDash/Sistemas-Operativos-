@@ -210,3 +210,203 @@
 [Operador 2] Operador 2 registró una llamada Nacional de prioridad Media, zona Urbana, refuerzos: Sí, central: Forense, incidente: Accidente
 [Operador 1] Operador 1 registró una llamada Internacional de prioridad Media, zona Rural, refuerzos: No, central: Comisaria, incidente: Accidente
 [Operador 2] Operador 2 registró una llamada Internacional de prioridad Media, zona Rural, refuerzos: No, central: Comisaria, incidente: Accidente
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Media, zona Rural, refuerzos: No, central: Forense, incidente: Accidente
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Media, zona Rural, refuerzos: No, central: Forense, incidente: Accidente
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Baja, zona Urbana, refuerzos: No, central: Forense, incidente: Accidente
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Baja, zona Urbana, refuerzos: No, central: Forense, incidente: Accidente
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Alta, zona Rural, refuerzos: No, central: Forense, incidente: Muerte
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Alta, zona Rural, refuerzos: No, central: Forense, incidente: Muerte
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Media, zona Rural, refuerzos: Sí, central: Comisaria, incidente: Enfermedad
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Media, zona Rural, refuerzos: Sí, central: Comisaria, incidente: Enfermedad
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Baja, zona Urbana, refuerzos: Sí, central: Forense, incidente: Accidente
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Baja, zona Urbana, refuerzos: Sí, central: Forense, incidente: Accidente
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Baja, zona Rural, refuerzos: Sí, central: Hospital, incidente: Crimen
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Baja, zona Rural, refuerzos: Sí, central: Hospital, incidente: Crimen
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Media, zona Urbana, refuerzos: Sí, central: Accidente, incidente: Muerte
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Media, zona Urbana, refuerzos: Sí, central: Accidente, incidente: Muerte
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Media, zona Rural, refuerzos: Sí, central: Accidente, incidente: Muerte
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Media, zona Rural, refuerzos: Sí, central: Accidente, incidente: Muerte
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Alta, zona Urbana, refuerzos: Sí, central: Accidente, incidente: Muerte
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Alta, zona Urbana, refuerzos: Sí, central: Accidente, incidente: Muerte
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Baja, zona Urbana, refuerzos: No, central: Hospital, incidente: Crimen
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Baja, zona Urbana, refuerzos: No, central: Hospital, incidente: Crimen
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Baja, zona Urbana, refuerzos: No, central: Hospital, incidente: Crimen
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Baja, zona Urbana, refuerzos: No, central: Hospital, incidente: Crimen
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Baja, zona Urbana, refuerzos: Sí, central: Accidente, incidente: Muerte
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Baja, zona Urbana, refuerzos: Sí, central: Accidente, incidente: Muerte
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Media, zona Urbana, refuerzos: No, central: Comisaria, incidente: Accidente
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Media, zona Urbana, refuerzos: No, central: Comisaria, incidente: Accidente
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Baja, zona Urbana, refuerzos: Sí, central: Comisaria, incidente: Accidente
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Baja, zona Urbana, refuerzos: Sí, central: Comisaria, incidente: Accidente
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Alta, zona Rural, refuerzos: No, central: Hospital, incidente: Crimen
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Alta, zona Rural, refuerzos: No, central: Hospital, incidente: Crimen
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Media, zona Rural, refuerzos: No, central: Accidente, incidente: Muerte
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Media, zona Rural, refuerzos: No, central: Accidente, incidente: Muerte
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Baja, zona Rural, refuerzos: Sí, central: Comisaria, incidente: Accidente
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Baja, zona Rural, refuerzos: Sí, central: Comisaria, incidente: Accidente
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Baja, zona Urbana, refuerzos: Sí, central: Hospital, incidente: Crimen
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Baja, zona Urbana, refuerzos: Sí, central: Hospital, incidente: Crimen
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Baja, zona Urbana, refuerzos: No, central: Accidente, incidente: Muerte
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Baja, zona Urbana, refuerzos: No, central: Accidente, incidente: Muerte
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Media, zona Urbana, refuerzos: Sí, central: Forense, incidente: Enfermedad
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Media, zona Urbana, refuerzos: Sí, central: Forense, incidente: Enfermedad
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Baja, zona Urbana, refuerzos: Sí, central: Comisaria, incidente: Accidente
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Baja, zona Urbana, refuerzos: Sí, central: Comisaria, incidente: Accidente
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Alta, zona Rural, refuerzos: Sí, central: Comisaria, incidente: Accidente
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Alta, zona Rural, refuerzos: Sí, central: Comisaria, incidente: Accidente
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Media, zona Urbana, refuerzos: No, central: Hospital, incidente: Crimen
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Media, zona Urbana, refuerzos: No, central: Hospital, incidente: Crimen
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Media, zona Rural, refuerzos: No, central: Hospital, incidente: Crimen
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Media, zona Rural, refuerzos: No, central: Hospital, incidente: Crimen
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Media, zona Urbana, refuerzos: No, central: Accidente, incidente: Muerte
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Media, zona Urbana, refuerzos: No, central: Accidente, incidente: Muerte
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Alta, zona Urbana, refuerzos: No, central: Forense, incidente: Enfermedad
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Alta, zona Urbana, refuerzos: No, central: Forense, incidente: Enfermedad
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Media, zona Rural, refuerzos: Sí, central: Hospital, incidente: Crimen
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Media, zona Rural, refuerzos: Sí, central: Hospital, incidente: Crimen
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Baja, zona Rural, refuerzos: No, central: Comisaria, incidente: Enfermedad
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Baja, zona Rural, refuerzos: No, central: Comisaria, incidente: Enfermedad
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Baja, zona Urbana, refuerzos: No, central: Hospital, incidente: Crimen
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Baja, zona Urbana, refuerzos: No, central: Hospital, incidente: Crimen
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Media, zona Rural, refuerzos: Sí, central: Hospital, incidente: Accidente
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Media, zona Rural, refuerzos: Sí, central: Hospital, incidente: Accidente
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Media, zona Rural, refuerzos: No, central: Comisaria, incidente: Enfermedad
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Media, zona Rural, refuerzos: No, central: Comisaria, incidente: Enfermedad
+[Operador 1] Operador 1 registró una llamada Internacional de prioridad Media, zona Urbana, refuerzos: Sí, central: Forense, incidente: Enfermedad
+[Operador 2] Operador 2 registró una llamada Internacional de prioridad Media, zona Urbana, refuerzos: Sí, central: Forense, incidente: Enfermedad
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Alta, zona Rural, refuerzos: Sí, central: Hospital, incidente: Enfermedad
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Alta, zona Rural, refuerzos: Sí, central: Hospital, incidente: Enfermedad
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Alta, zona Urbana, refuerzos: No, central: Comisaria, incidente: Enfermedad
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Alta, zona Urbana, refuerzos: No, central: Comisaria, incidente: Enfermedad
+[Operador 1] Operador 1 registró una llamada Nacional de prioridad Media, zona Rural, refuerzos: No, central: Forense, incidente: Enfermedad
+[Operador 2] Operador 2 registró una llamada Nacional de prioridad Media, zona Rural, refuerzos: No, central: Forense, incidente: Enfermedad
+[Operador 1] Procesó ID: 3951 | Prioridad: Media | Incidente: Herido (Nacional, Línea: Hondutel, Zona: Urbana, Refuerzos: Sí) | Enviado a: [Comisaria] [Hospital] 
+[Operador 2] Procesó ID: 5721 | Prioridad: Media | Incidente: Crimen (Nacional, Línea: Tigo, Zona: Urbana, Refuerzos: Sí) | Enviado a: [Comisaria] 
+[Operador 1] Procesó ID: 5211 | Prioridad: Media | Incidente: Herido (Nacional, Línea: Hondutel, Zona: Urbana, Refuerzos: No) | Enviado a: [Comisaria] [Hospital] 
+[Operador 2] Procesó ID: 3163 | Prioridad: Media | Incidente: Herido (Nacional, Línea: Hondutel, Zona: Rural, Refuerzos: No) | Enviado a: [Comisaria] [Hospital] 
+[Operador 2] Procesó ID: 9753 | Prioridad: Alta | Incidente: Asesinato (Internacional, Línea: Tigo, Zona: Rural, Refuerzos: Sí) | Enviado a: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 8723 | Prioridad: Alta | Incidente: Muerte (Nacional, Línea: Hondutel, Zona: Urbana, Refuerzos: No) | Enviado a: [Comisaria] [Forense] 
+[Operador 2] Procesó ID: 3220 | Prioridad: Alta | Incidente: Accidente (Nacional, Línea: Tigo, Zona: Rural, Refuerzos: No) | Enviado a: [Comisaria] [Hospital] 
+[Operador 1] Procesó ID: 3112 | Prioridad: Alta | Incidente: Persecución (Nacional, Línea: Claro, Zona: Urbana, Refuerzos: Sí) | Enviado a: [Comisaria] 
+[Operador 2] Procesó ID: 7875 | Prioridad: Alta | Incidente: Muerte (Nacional, Línea: Claro, Zona: Rural, Refuerzos: Sí) | Enviado a: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 7381 | Prioridad: Baja | Incidente: Enfermedad (Internacional, Línea: Tigo, Zona: Rural, Refuerzos: No) | Enviado a: [Hospital] 
+[Operador 2] Procesó ID: 6972 | Prioridad: Media | Incidente: Crimen (Internacional) | Enviado a: [Comisaria] 
+[Operador 1] Procesó ID: 6972 | Prioridad: Media | Incidente: Crimen (Internacional) | Enviado a: [Comisaria] 
+[Operador 2] Procesó ID: 3786 | Prioridad: Falsa Alarma | Incidente: Falsa Alarma (Internacional) | Enviado a: [Comisaria] 
+[Operador 1] Procesó ID: 3786 | Prioridad: Falsa Alarma | Incidente: Falsa Alarma (Internacional) | Enviado a: [Comisaria] 
+[Operador 2] Procesó ID: 9480 | Prioridad: Falsa Alarma | Incidente: Falsa Alarma (Nacional) | Enviado a: [Comisaria] 
+[Operador 1] Procesó ID: 9480 | Prioridad: Falsa Alarma | Incidente: Falsa Alarma (Nacional) | Enviado a: [Comisaria] 
+[Operador 2] Procesó ID: 3326 | Prioridad: Alta | Incidente: Muerte (Nacional) | Enviado a: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 3326 | Prioridad: Alta | Incidente: Muerte (Nacional) | Enviado a: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 8569 | Prioridad: Media | Incidente: Herido (Nacional) | Enviado a: [Comisaria] [Hospital] 
+[Operador 2] Procesó ID: 8569 | Prioridad: Media | Incidente: Herido (Nacional) | Enviado a: [Comisaria] [Hospital] 
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 4223 | Operador: 1) - No califica como emergencia nacional.
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 4223 | Operador: 2) - No califica como emergencia nacional.
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 2538 | Operador: 1) - No califica como emergencia nacional.
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 2538 | Operador: 2) - No califica como emergencia nacional.
+[Operador 1] Procesó ID: 8405 | Tipo: Nacional | Prioridad: Alta | Incidente: Robo (Línea: Tigo) | Atendida por: [Comisaria] 
+[Operador 2] Procesó ID: 8405 | Tipo: Nacional | Prioridad: Alta | Incidente: Robo (Línea: Tigo) | Atendida por: [Comisaria] 
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 2434 | Operador: 2) - No califica como emergencia nacional.
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 2434 | Operador: 1) - No califica como emergencia nacional.
+[Operador 2] Procesó ID: 1692 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Tigo) | Atendida por: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 1692 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Tigo) | Atendida por: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 6393 | Tipo: Nacional | Prioridad: Falsa Alarma | Incidente: Falsa Alarma (Línea: Hondutel) | Atendida por: [Comisaria] 
+[Operador 2] Procesó ID: 6393 | Tipo: Nacional | Prioridad: Falsa Alarma | Incidente: Falsa Alarma (Línea: Hondutel) | Atendida por: [Comisaria] 
+[Operador 1] Procesó ID: 1031 | Tipo: Nacional | Prioridad: Falsa Alarma | Incidente: Falsa Alarma (Línea: Hondutel) | Atendida por: [Comisaria] 
+[Operador 2] Procesó ID: 1031 | Tipo: Nacional | Prioridad: Falsa Alarma | Incidente: Falsa Alarma (Línea: Hondutel) | Atendida por: [Comisaria] 
+[Operador 1] Procesó ID: 5869 | Tipo: Nacional | Prioridad: Alta | Incidente: Robo (Línea: Tigo) | Atendida por: [Comisaria] 
+[Operador 2] Procesó ID: 5869 | Tipo: Nacional | Prioridad: Alta | Incidente: Robo (Línea: Tigo) | Atendida por: [Comisaria] 
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 2085 | Operador: 2) - No califica como emergencia nacional.
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 2085 | Operador: 1) - No califica como emergencia nacional.
+[Operador 2] Procesó ID: 1683 | Tipo: Nacional | Prioridad: Media | Incidente: Crimen (Línea: Claro) | Atendida por: [Comisaria] 
+[Operador 1] Procesó ID: 1683 | Tipo: Nacional | Prioridad: Media | Incidente: Crimen (Línea: Claro) | Atendida por: [Comisaria] 
+[Operador 1] Procesó ID: 8315 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Hondutel) | Atendida por: [Comisaria] [Forense] 
+[Operador 2] Procesó ID: 8315 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Hondutel) | Atendida por: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 9743 | Tipo: Nacional | Prioridad: Media | Incidente: Crimen (Línea: Claro) | Atendida por: [Comisaria] 
+[Operador 2] Procesó ID: 9743 | Tipo: Nacional | Prioridad: Media | Incidente: Crimen (Línea: Claro) | Atendida por: [Comisaria] 
+[Operador 1] Procesó ID: 1734 | Tipo: Nacional | Prioridad: Alta | Incidente: Asesinato (Línea: Tigo) | Atendida por: [Comisaria] [Forense] 
+[Operador 2] Procesó ID: 1734 | Tipo: Nacional | Prioridad: Alta | Incidente: Asesinato (Línea: Tigo) | Atendida por: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 9706 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Claro) | Atendida por: [Comisaria] [Forense] 
+[Operador 2] Procesó ID: 9706 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Claro) | Atendida por: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 4351 | Tipo: Nacional | Prioridad: Media | Incidente: Herido (Línea: Claro) | Atendida por: [Comisaria] [Hospital] 
+[Operador 2] Procesó ID: 4351 | Tipo: Nacional | Prioridad: Media | Incidente: Herido (Línea: Claro) | Atendida por: [Comisaria] [Hospital] 
+[Operador 1] Procesó ID: 7776 | Tipo: Nacional | Prioridad: Media | Incidente: Crimen (Línea: Hondutel) | Atendida por: [Comisaria] 
+[Operador 2] Procesó ID: 7776 | Tipo: Nacional | Prioridad: Media | Incidente: Crimen (Línea: Hondutel) | Atendida por: [Comisaria] 
+[Operador 1] Procesó ID: 9443 | Tipo: Nacional | Prioridad: Alta | Incidente: Persecución (Línea: Tigo) | Atendida por: [Comisaria] 
+[Operador 2] Procesó ID: 9443 | Tipo: Nacional | Prioridad: Alta | Incidente: Persecución (Línea: Tigo) | Atendida por: [Comisaria] 
+[Operador 1] Procesó ID: 7201 | Tipo: Nacional | Prioridad: Media | Incidente: Herido (Línea: Hondutel) | Atendida por: [Comisaria] [Hospital] 
+[Operador 2] Procesó ID: 7201 | Tipo: Nacional | Prioridad: Media | Incidente: Herido (Línea: Hondutel) | Atendida por: [Comisaria] [Hospital] 
+[Operador 1] Procesó ID: 5817 | Tipo: Nacional | Prioridad: Alta | Incidente: Accidente (Línea: Tigo) | Atendida por: [Comisaria] [Hospital] 
+[Operador 2] Procesó ID: 5817 | Tipo: Nacional | Prioridad: Alta | Incidente: Accidente (Línea: Tigo) | Atendida por: [Comisaria] [Hospital] 
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 5576 | Operador: 1) - No califica como emergencia nacional.
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 5576 | Operador: 2) - No califica como emergencia nacional.
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 1231 | Operador: 1) - No califica como emergencia nacional.
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 1231 | Operador: 2) - No califica como emergencia nacional.
+[Operador 1] Procesó ID: 6314 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Hondutel) | Atendida por: [Hospital] 
+[Operador 2] Procesó ID: 6314 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Hondutel) | Atendida por: [Hospital] 
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 4478 | Operador: 1) - No califica como emergencia nacional.
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 4478 | Operador: 2) - No califica como emergencia nacional.
+[Operador 2] Procesó ID: 5740 | Tipo: Nacional | Prioridad: Alta | Incidente: Accidente (Línea: Claro) | Atendida por: [Comisaria] [Hospital] 
+[Operador 1] Procesó ID: 5740 | Tipo: Nacional | Prioridad: Alta | Incidente: Accidente (Línea: Claro) | Atendida por: [Comisaria] [Hospital] 
+[Operador 2] Procesó ID: 1646 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Tigo) | Atendida por: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 1646 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Tigo) | Atendida por: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 9193 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Claro) | Atendida por: [Comisaria] [Forense] 
+[Operador 2] Procesó ID: 9193 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Claro) | Atendida por: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 7264 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Hondutel) | Atendida por: [Comisaria] [Forense] 
+[Operador 2] Procesó ID: 7264 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Hondutel) | Atendida por: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 8981 | Tipo: Nacional | Prioridad: Alta | Incidente: Accidente (Línea: Tigo) | Atendida por: [Comisaria] [Hospital] 
+[Operador 2] Procesó ID: 8981 | Tipo: Nacional | Prioridad: Alta | Incidente: Accidente (Línea: Tigo) | Atendida por: [Comisaria] [Hospital] 
+[Operador 1] Procesó ID: 5009 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Claro) | Atendida por: [Comisaria] [Forense] 
+[Operador 2] Procesó ID: 5009 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Claro) | Atendida por: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 5651 | Tipo: Nacional | Prioridad: Alta | Incidente: Asesinato (Línea: Tigo) | Atendida por: [Comisaria] [Forense] 
+[Operador 2] Procesó ID: 5651 | Tipo: Nacional | Prioridad: Alta | Incidente: Asesinato (Línea: Tigo) | Atendida por: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 2883 | Tipo: Nacional | Prioridad: Alta | Incidente: Asesinato (Línea: Claro) | Atendida por: [Comisaria] [Forense] 
+[Operador 2] Procesó ID: 2883 | Tipo: Nacional | Prioridad: Alta | Incidente: Asesinato (Línea: Claro) | Atendida por: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 9204 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Tigo) | Atendida por: [Comisaria] [Forense] 
+[Operador 2] Procesó ID: 9204 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Tigo) | Atendida por: [Comisaria] [Forense] 
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 7992 | Operador: 1) - No califica como emergencia nacional.
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 7992 | Operador: 2) - No califica como emergencia nacional.
+[Operador 1] Procesó ID: 2454 | Tipo: Nacional | Prioridad: Media | Incidente: Herido (Línea: Hondutel) | Atendida por: [Hospital] 
+[Operador 2] Procesó ID: 2454 | Tipo: Nacional | Prioridad: Media | Incidente: Herido (Línea: Hondutel) | Atendida por: [Hospital] 
+[Operador 1] Procesó ID: 1973 | Tipo: Nacional | Prioridad: Alta | Incidente: Robo (Línea: Tigo) | Atendida por: [Comisaria] 
+[Operador 2] Procesó ID: 1973 | Tipo: Nacional | Prioridad: Alta | Incidente: Robo (Línea: Tigo) | Atendida por: [Comisaria] 
+[Operador 1] Procesó ID: 8157 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Claro) | ENVIANDO A: [Hospital] 
+[Operador 2] Procesó ID: 8157 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Claro) | ENVIANDO A: [Hospital] 
+[Operador 1] Procesó ID: 7220 | Tipo: Nacional | Prioridad: Alta | Incidente: Persecución (Línea: Tigo) | ENVIANDO A: [Comisaria] 
+[Operador 2] Procesó ID: 7220 | Tipo: Nacional | Prioridad: Alta | Incidente: Persecución (Línea: Tigo) | ENVIANDO A: [Comisaria] 
+[Operador 1] Procesó ID: 4972 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Hondutel) | ENVIANDO A: [Hospital] 
+[Operador 2] Procesó ID: 4972 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Hondutel) | ENVIANDO A: [Hospital] 
+[Operador 1] Procesó ID: 1048 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Tigo) | ENVIANDO A: [Comisaria] [Forense] 
+[Operador 2] Procesó ID: 1048 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Tigo) | ENVIANDO A: [Comisaria] [Forense] 
+[Operador 2] Procesó ID: 9533 | Tipo: Nacional | Prioridad: Media | Incidente: Herido (Línea: Tigo) | ENVIANDO A: [Hospital] 
+[Operador 1] Procesó ID: 9533 | Tipo: Nacional | Prioridad: Media | Incidente: Herido (Línea: Tigo) | ENVIANDO A: [Hospital] 
+[Operador 1] Procesó ID: 4226 | Tipo: Nacional | Prioridad: Media | Incidente: Herido (Línea: Hondutel) | ENVIANDO A: [Hospital] 
+[Operador 2] Procesó ID: 4226 | Tipo: Nacional | Prioridad: Media | Incidente: Herido (Línea: Hondutel) | ENVIANDO A: [Hospital] 
+[Operador 2] Procesó ID: 7286 | Tipo: Nacional | Prioridad: Media | Incidente: Herido (Línea: Claro) | ENVIANDO A: [Hospital] 
+[Operador 1] Procesó ID: 7286 | Tipo: Nacional | Prioridad: Media | Incidente: Herido (Línea: Claro) | ENVIANDO A: [Hospital] 
+[Operador 2] Procesó ID: 8567 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Claro) | ENVIANDO A: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 8567 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Claro) | ENVIANDO A: [Comisaria] [Forense] 
+[Operador 2] Procesó ID: 4114 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Hondutel) | ENVIANDO A: [Hospital] 
+[Operador 1] Procesó ID: 4114 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Hondutel) | ENVIANDO A: [Hospital] 
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 4559 | Operador: 2) - No califica como emergencia nacional.
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 4559 | Operador: 1) - No califica como emergencia nacional.
+[Operador 1] Procesó ID: 2514 | Tipo: Nacional | Prioridad: Alta | Incidente: Persecución (Línea: Claro) | ENVIANDO A: [Comisaria] 
+[Operador 2] Procesó ID: 2514 | Tipo: Nacional | Prioridad: Alta | Incidente: Persecución (Línea: Claro) | ENVIANDO A: [Comisaria] 
+[Operador 1] Procesó ID: 6111 | Tipo: Nacional | Prioridad: Media | Incidente: Crimen (Línea: Claro) | ENVIANDO A: [Comisaria] 
+[Operador 2] Procesó ID: 6111 | Tipo: Nacional | Prioridad: Media | Incidente: Crimen (Línea: Claro) | ENVIANDO A: [Comisaria] 
+[Operador 1] Procesó ID: 9645 | Tipo: Nacional | Prioridad: Media | Incidente: Crimen (Línea: Tigo) | ENVIANDO A: [Comisaria] 
+[Operador 2] Procesó ID: 9645 | Tipo: Nacional | Prioridad: Media | Incidente: Crimen (Línea: Tigo) | ENVIANDO A: [Comisaria] 
+[Operador 1] Procesó ID: 8733 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Claro) | ENVIANDO A: [Hospital] 
+[Operador 2] Procesó ID: 8733 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Claro) | ENVIANDO A: [Hospital] 
+[Operador 1] Procesó ID: 3524 | Tipo: Nacional | Prioridad: Falsa Alarma | Incidente: Falsa Alarma (Línea: Claro) | ENVIANDO A: [Comisaria] 
+[Operador 2] Procesó ID: 3524 | Tipo: Nacional | Prioridad: Falsa Alarma | Incidente: Falsa Alarma (Línea: Claro) | ENVIANDO A: [Comisaria] 
+[Operador 1] Procesó ID: 2139 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Hondutel) | ENVIANDO A: [Hospital] 
+[Operador 2] Procesó ID: 2139 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Hondutel) | ENVIANDO A: [Hospital] 
+[Operador 1] Procesó ID: 1312 | Tipo: Nacional | Prioridad: Alta | Incidente: Asesinato (Línea: Hondutel) | ENVIANDO A: [Comisaria] [Forense] 
+[Operador 2] Procesó ID: 1312 | Tipo: Nacional | Prioridad: Alta | Incidente: Asesinato (Línea: Hondutel) | ENVIANDO A: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 4709 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Claro) | ENVIANDO A: [Comisaria] [Forense] 
+[Operador 2] Procesó ID: 4709 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Claro) | ENVIANDO A: [Comisaria] [Forense] 
+[Operador 2] Procesó ID: 8222 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Hondutel) | ENVIANDO A: [Hospital] 
+[Operador 1] Procesó ID: 8222 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Hondutel) | ENVIANDO A: [Hospital] 
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 9719 | Operador: 1) - No califica como emergencia nacional.
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 9719 | Operador: 2) - No califica como emergencia nacional.
