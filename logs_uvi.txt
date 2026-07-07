@@ -410,3 +410,71 @@
 [Operador 1] Procesó ID: 8222 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Hondutel) | ENVIANDO A: [Hospital] 
 [Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 9719 | Operador: 1) - No califica como emergencia nacional.
 [Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 9719 | Operador: 2) - No califica como emergencia nacional.
+[Operador 1] Procesó ID: 6515 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Tigo) | ENVIANDO A: [Hospital] 
+[Operador 2] Procesó ID: 6515 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Tigo) | ENVIANDO A: [Hospital] 
+[Operador 1] Procesó ID: 5803 | Tipo: Nacional | Prioridad: Alta | Incidente: Asesinato (Línea: Hondutel) | ENVIANDO A: [Comisaria] [Forense] 
+[Operador 2] Procesó ID: 5803 | Tipo: Nacional | Prioridad: Alta | Incidente: Asesinato (Línea: Hondutel) | ENVIANDO A: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 7755 | Tipo: Nacional | Prioridad: Alta | Incidente: Accidente (Línea: Claro) | ENVIANDO A: [Comisaria] [Hospital] 
+[Operador 2] Procesó ID: 7755 | Tipo: Nacional | Prioridad: Alta | Incidente: Accidente (Línea: Claro) | ENVIANDO A: [Comisaria] [Hospital] 
+[Operador 2] Procesó ID: 5219 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Claro) | ENVIANDO A: [Hospital] 
+[Operador 1] Procesó ID: 5219 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Claro) | ENVIANDO A: [Hospital] 
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 2450 | Operador: 2) - No califica como emergencia nacional.
+[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: 2450 | Operador: 1) - No califica como emergencia nacional.
+[Operador 1] Procesó ID: 8368 | Tipo: Nacional | Prioridad: Media | Incidente: Herido (Línea: Hondutel) | ENVIANDO A: [Hospital] 
+[Operador 2] Procesó ID: 8368 | Tipo: Nacional | Prioridad: Media | Incidente: Herido (Línea: Hondutel) | ENVIANDO A: [Hospital] 
+[Operador 1] Procesó ID: 5591 | Tipo: Nacional | Prioridad: Alta | Incidente: Persecución (Línea: Tigo) | ENVIANDO A: [Comisaria] 
+[Operador 2] Procesó ID: 5591 | Tipo: Nacional | Prioridad: Alta | Incidente: Persecución (Línea: Tigo) | ENVIANDO A: [Comisaria] 
+[Operador 1] Procesó ID: 8194 | Tipo: Nacional | Prioridad: Alta | Incidente: Persecución (Línea: Tigo) | ENVIANDO A: [Comisaria] 
+[Operador 2] Procesó ID: 8194 | Tipo: Nacional | Prioridad: Alta | Incidente: Persecución (Línea: Tigo) | ENVIANDO A: [Comisaria] 
+[Operador 1] Procesó ID: 3111 | Tipo: Nacional | Prioridad: Media | Incidente: Crimen (Línea: Tigo) | ENVIANDO A: [Comisaria] 
+[Operador 2] Procesó ID: 3111 | Tipo: Nacional | Prioridad: Media | Incidente: Crimen (Línea: Tigo) | ENVIANDO A: [Comisaria] 
+[Operador 2] Procesó ID: 7743 | Tipo: Nacional | Prioridad: Alta | Incidente: Asesinato (Línea: Hondutel) | ENVIANDO A: [Comisaria] [Forense] 
+[Operador 1] Procesó ID: 7743 | Tipo: Nacional | Prioridad: Alta | Incidente: Asesinato (Línea: Hondutel) | ENVIANDO A: [Comisaria] [Forense] 
+[Operador 1] Registró ID: 1 | Tipo: Nacional | Prioridad: Media | Incidente: Herido (Línea: Hondutel) | Enviando a : [Hospital] 
+[Operador 2] Registró ID: 2 | Tipo: Nacional | Prioridad: Media | Incidente: Herido (Línea: Hondutel) | Enviando a : [Hospital] 
+[Hospital] ID: 1 | Prioridad: Media | Ambulancia enviada
+[Hospital] ID: 2 | Prioridad: Media | Ambulancia enviada
+[Operador 1] Registró ID: 3 | Tipo: Nacional | Prioridad: Media | Incidente: Crimen (Línea: Hondutel) | Enviando a : [Comisaria] 
+[Operador 2] Registró ID: 4 | Tipo: Nacional | Prioridad: Media | Incidente: Crimen (Línea: Hondutel) | Enviando a : [Comisaria] 
+[Comisaria] ID: 3 | Prioridad: Media | Patrulla enviada
+[Comisaria] ID: 4 | Prioridad: Media | Patrulla enviada
+[Operador 1] Registró ID: 5 | Tipo: Nacional | Prioridad: Alta | Incidente: Asesinato (Línea: Tigo) | Enviando a : [Comisaria] [Forense] 
+[Operador 2] Registró ID: 6 | Tipo: Nacional | Prioridad: Alta | Incidente: Asesinato (Línea: Tigo) | Enviando a : [Comisaria] [Forense] 
+[Comisaria] ID: 5 | Prioridad: Alta | Patrulla enviada
+[Forense] ID: 5 | Prioridad: Alta | Equipo forense enviado
+[Comisaria] ID: 6 | Prioridad: Alta | Patrulla enviada
+[Forense] ID: 6 | Prioridad: Alta | Equipo forense enviado
+[Operador 1] Registró ID: 7 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Tigo) | Enviando a : [Hospital] 
+[Hospital] ID: 7 | Prioridad: Baja | Ambulancia enviada
+[Operador 2] Registró ID: 8 | Tipo: Nacional | Prioridad: Baja | Incidente: Enfermedad (Línea: Tigo) | Enviando a : [Hospital] 
+[Hospital] ID: 8 | Prioridad: Baja | Ambulancia enviada
+[Operador 1] Registró ID: 9 | Tipo: Nacional | Prioridad: Alta | Incidente: Robo (Línea: Claro) | Enviando a : [Comisaria] 
+[Comisaria] ID: 9 | Prioridad: Alta | Patrulla enviada
+[Operador 2] Registró ID: 10 | Tipo: Nacional | Prioridad: Alta | Incidente: Robo (Línea: Claro) | Enviando a : [Comisaria] 
+[Comisaria] ID: 10 | Prioridad: Alta | Patrulla enviada
+[Operador 1] Registró ID: 11 | Tipo: Nacional | Prioridad: Alta | Incidente: Accidente (Línea: Claro) | Enviando a : [Comisaria] [Hospital] 
+[Hospital] ID: 11 | Prioridad: Alta | Ambulancia enviada
+[Comisaria] ID: 11 | Prioridad: Alta | Patrulla enviada
+[Operador 2] Registró ID: 12 | Tipo: Nacional | Prioridad: Alta | Incidente: Accidente (Línea: Claro) | Enviando a : [Comisaria] [Hospital] 
+[Hospital] ID: 12 | Prioridad: Alta | Ambulancia enviada
+[Comisaria] ID: 12 | Prioridad: Alta | Patrulla enviada
+[Operador 1] Registró ID: 13 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Claro) | Enviando a : [Comisaria] [Forense] 
+[Comisaria] ID: 13 | Prioridad: Alta | Patrulla enviada
+[Forense] ID: 13 | Prioridad: Alta | Equipo forense enviado
+[Operador 2] Registró ID: 14 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Claro) | Enviando a : [Comisaria] [Forense] 
+[Comisaria] ID: 14 | Prioridad: Alta | Patrulla enviada
+[Forense] ID: 14 | Prioridad: Alta | Equipo forense enviado
+[Operador 1] Registró ID: 15 | Tipo: Nacional | Prioridad: Alta | Incidente: Persecución (Línea: Hondutel) | Enviando a : [Comisaria] 
+[Comisaria] ID: 15 | Prioridad: Alta | Patrulla enviada
+[Operador 2] Registró ID: 16 | Tipo: Nacional | Prioridad: Alta | Incidente: Persecución (Línea: Hondutel) | Enviando a : [Comisaria] 
+[Comisaria] ID: 16 | Prioridad: Alta | Patrulla enviada
+[Operador 1] Registró ID: 17 | Tipo: Nacional | Prioridad: Alta | Incidente: Robo (Línea: Claro) | Enviando a : [Comisaria] 
+[Comisaria] ID: 17 | Prioridad: Alta | Patrulla enviada
+[Operador 2] Registró ID: 18 | Tipo: Nacional | Prioridad: Alta | Incidente: Robo (Línea: Claro) | Enviando a : [Comisaria] 
+[Comisaria] ID: 18 | Prioridad: Alta | Patrulla enviada
+[Operador 1] Registró ID: 19 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Claro) | Enviando a : [Comisaria] [Forense] 
+[Comisaria] ID: 19 | Prioridad: Alta | Patrulla enviada
+[Forense] ID: 19 | Prioridad: Alta | Equipo forense enviado
+[Operador 2] Registró ID: 20 | Tipo: Nacional | Prioridad: Alta | Incidente: Muerte (Línea: Claro) | Enviando a : [Comisaria] [Forense] 
+[Comisaria] ID: 20 | Prioridad: Alta | Patrulla enviada
+[Forense] ID: 20 | Prioridad: Alta | Equipo forense enviado

@@ -1,202 +1,380 @@
+#include <sys/sem.h> // semget, semctl, semop
+#include <sys/shm.h> // shmget, shmat, shmdt, shmctl
+#include <sys/ipc.h> // IPC
+#include <sys/errno.h>
+#include <wait.h>
+#include <unistd.h>
 #include <iostream>
-#include <thread>
-#include <queue>
-#include <string>
-#include <chrono>
 #include <fstream>
+#include <cstdlib>
+#include <ctime>
+#include <cstring>
+#include <queue>
 
 using namespace std;
 
-//Estructura de la llamada recibida en la central de emergencias
-struct Llamada {
-    int idLlamada;
-    string lineaTelefonica;
-    string zonaLlamada;
-    string descripcionLlamada;
+// --- CONFIGURACIÓN DE SEMÁFOROS (ÍNDICES) ---
+#define SEM_COLA 0    // Controla el acceso a la cola de prioridad general
+#define SEM_MONITOR 1 // Controla la exclusión mutua dentro del Monitor
+
+union semun
+{
+    int val;
+    struct semid_ds *buf;
+    unsigned short *array;
 };
 
-//Colas de llamadas 
-queue<Llamada> colaHospital;
-queue<Llamada> colaComisaría;
-queue<Llamada> colaForense;
-
-
-//Variables a utilizar en Peterson
-bool bandera[2] = {false, false};
-int turno;
-
-//Contador a utilizar para el incremento de las llamadas en las colas
-int contadorID = 0;
-
-//Archivo para guardar el registro de las llamadas
-ofstream logFile("logs_uvi.txt", ios::app);
-
-//Metodos para la Sección Crítica
-void entrarSeccionCritica(int i){
-    int j = 1 - i;
-    bandera[i] = true;
-    turno = j;
-    while(bandera[j] && turno == j);
+// REGLAS DEL SEMAFORO NATIVAS
+void sem_wait(int semid, int sem_num)
+{
+    struct sembuf operacion = {(unsigned short)sem_num, -1, 0};
+    semop(semid, &operacion, 1);
 }
 
-void salirSeccionCritica(int i){
-    bandera[i] = false;
+void sem_signal(int semid, int sem_num)
+{
+    struct sembuf operacion = {(unsigned short)sem_num, 1, 0};
+    semop(semid, &operacion, 1);
 }
 
-//Función para ingresar los registros al archivo de texto
-void registrar(string text){
-    logFile << text << endl;
-    logFile.flush();
-}
+// --- ENUMS ORIGINALES ---
+enum Centrales
+{
+    COMISARIA = 1 << 0,
+    HOSPITAL = 1 << 1,
+    FORENSE = 1 << 2
+};
+enum Incidentes
+{
+    ACCIDENTE,
+    CRIMEN,
+    ENFERMEDAD,
+    MUERTE,
+    ROBO,
+    ASESINATO,
+    HERIDO,
+    PERSECUCION,
+    FALSA_ALARMA
+};
+enum Prioridad
+{
+    ALTA,
+    MEDIA,
+    BAJA,
+    FALSA_ALARMA_P
+};
+enum Linea
+{
+    CLARO,
+    TIGO,
+    HONDUTEL
+};
+enum TipoLlamada
+{
+    Nacional,
+    Internacional
+};
+enum zona
+{
+    rural,
+    urbana
+};
+enum refuerzos
+{
+    SI,
+    NO
+};
 
-//Metodo para la central de llamadas UVI
-void centralUVI(int op){
-    for(int i = 0; i < 2; i++){
-        
-        Llamada call;
-        entrarSeccionCritica(op);
+// MAPEO PARA IMPRESIÓN en CONSOLA
+string nombre_centrales[] = {"Comisaria", "Hospital", "Forense"};
+string nombre_incidentes[] = {"Accidente", "Crimen", "Enfermedad", "Muerte", "Robo", "Asesinato", "Herido", "Persecución", "Falsa Alarma"};
+string nombre_prioridad[] = {"Alta", "Media", "Baja", "Falsa Alarma"};
+string nombre_linea[] = {"Claro", "Tigo", "Hondutel"};
+string nombre_tipo_llamada[] = {"Nacional", "Internacional"};
+string nombre_zona[] = {"Rural", "Urbana"};
+string nombre_refuerzos[] = {"Sí", "No"};
 
-        cout << "\nOperador " << op << endl;
-        cout << "Linea: "; getline(cin, call.lineaTelefonica);
-        cout << "Zona: "; getline(cin, call.zonaLlamada);
-        cout << "Descripcion: "; getline(cin, call.descripcionLlamada);
+// Estructura de la llamada
+struct Llamada
+{
+    int id;
+    Prioridad prioridad;
+    unsigned int Centralesbits;
+    char descripcion[150];
+    TipoLlamada tipo;
+    Linea linea_telefonica;
+    zona zona_llamada;
+    refuerzos refuerzos_llamada;
 
-        contadorID++;
-        call.idLlamada = contadorID;
+    // implementa prioridad de la llamada viendo la llamada actual con la otra llamada
+    bool operator<(const Llamada &otra) const
+    {
+        return this->prioridad > otra.prioridad;
+    }
+};
 
-        string registroDeLlamada = 
-        "[UVI] ID: " + to_string(call.idLlamada) + 
-        " | Línea Telefónica: " + call.lineaTelefonica + 
-        " | Zona de la llamada: " + call.zonaLlamada;
+// --- MONITOR DE CENTRALES (Alojado en MEMORIA COMPARTIDA) ---
+struct MonitorCentrales
+{
+    Llamada historialComisaria[50];
+    int sizeComisaria = 0;
 
-        cout << "\nREGISTRANDO LLAMADA: " << registroDeLlamada;
-        registrar(registroDeLlamada);
+    Llamada historialHospital[50];
+    int sizeHospital = 0;
 
-        if(call.descripcionLlamada == "Robo" ||
-            call.descripcionLlamada == "Asalto"){
-            colaComisaría.push(call);
-            registrar("[UVI] ID " + to_string(call.idLlamada) + 
-            " -> Comisaria");
-            cout << "\nEnviado a la Comisaría";
-        }else if(call.descripcionLlamada == "Homicidio"){
-            colaForense.push(call);
-            registrar("[UVI] ID " + to_string(call.idLlamada) + 
-            " -> Forense");
-            cout << "\nEnviado a Forense";
-        }else{
-            colaHospital.push(call);
-             registrar("[UVI] ID " + to_string(call.idLlamada) + 
-            " -> Hospital");
-            cout << "\nEnviado a Hospital";
+    Llamada historialForense[50];
+    int sizeForense = 0;
+
+    void procesarLlamada(Llamada llamada, int operadorId, int sem_id, ofstream &archivoLog)
+    {
+        sem_wait(sem_id, SEM_MONITOR);
+
+        // SI ES INTERNACIONAL SE DESCARTA ---
+        if (llamada.tipo == Internacional)
+        {
+            string descarte = "[Monitor] LLAMADA INTERNACIONAL DESCARTADA (ID: " + to_string(llamada.id) +
+                              " | Operador: " + to_string(operadorId) + ") - No califica como emergencia nacional.";
+
+            if (archivoLog.is_open())
+            {
+                archivoLog << descarte << endl;
+                archivoLog.flush();
+            }
+            cout << "\033[1;31m" << descarte << "\033[0m" << endl; // Imprime en rojo en la terminal
+
+            sem_signal(sem_id, SEM_MONITOR);
+            return; // Salimos de la función sin agregar la llamada a los arreglos
         }
 
-        salirSeccionCritica(op);
+        // --- SI ES NACIONAL, CONTINÚA EL PROCESO NORMAL ---
+        string registro = "[Operador " + to_string(operadorId) + "] Procesó ID: " + to_string(llamada.id) +
+                          " | Tipo: " + nombre_tipo_llamada[llamada.tipo] +
+                          " | Prioridad: " + nombre_prioridad[llamada.prioridad] +
+                          " | " + llamada.descripcion + " | ENVIANDO A: ";
 
-        this_thread::sleep_for(chrono::milliseconds(300));
+        if (llamada.Centralesbits & COMISARIA)
+        {
+            if (sizeComisaria < 50)
+                historialComisaria[sizeComisaria++] = llamada;
+            registro += "[Comisaria] ";
+        }
+        if (llamada.Centralesbits & HOSPITAL)
+        {
+            if (sizeHospital < 50)
+                historialHospital[sizeHospital++] = llamada;
+            registro += "[Hospital] ";
+        }
+        if (llamada.Centralesbits & FORENSE)
+        {
+            if (sizeForense < 50)
+                historialForense[sizeForense++] = llamada;
+            registro += "[Forense] ";
+        }
+
+        if (archivoLog.is_open())
+        {
+            archivoLog << registro << endl;
+            archivoLog.flush();
+        }
+        cout << registro << endl;
+
+        sem_signal(sem_id, SEM_MONITOR);
+    }
+
+    void mostrarEstadisticas()
+    {
+        cout << "\n=============================================" << endl;
+        cout << "   ESTADÍSTICAS FINALES DEL MONITOR (SHM)" << endl;
+        cout << "   (Solo Emergencias Nacionales Atendidas)   " << endl;
+        cout << "=============================================" << endl;
+        cout << "Total llamadas registradas en Comisaría: " << sizeComisaria << endl;
+        cout << "Total llamadas registradas en Hospital:  " << sizeHospital << endl;
+        cout << "Total llamadas registradas en Forense:   " << sizeForense << endl;
+        cout << "=============================================" << endl;
+    }
+};
+
+// asigna prioridad y centrales a la llamada
+Prioridad asignarPrioridadYCentrales(Incidentes incidente, unsigned int &centrales)
+{
+    switch (incidente)
+    {
+    case ACCIDENTE:
+        centrales = HOSPITAL | COMISARIA;
+        return ALTA;
+    case ROBO:
+    case PERSECUCION:
+        centrales = COMISARIA;
+        return ALTA;
+    case ASESINATO:
+    case MUERTE:
+        centrales = COMISARIA | FORENSE;
+        return ALTA;
+    case CRIMEN:
+        centrales = COMISARIA;
+        return MEDIA;
+    case HERIDO:
+        centrales = HOSPITAL;
+        return MEDIA;
+    case ENFERMEDAD:
+        centrales = HOSPITAL;
+        return BAJA;
+    default:
+        centrales = COMISARIA;
+        return FALSA_ALARMA_P;
     }
 }
 
-//Método para la recepción de las llamadas en el Hospital
-void recepcionHospital(){
-    while(true){
-        if(!colaHospital.empty()){
-            entrarSeccionCritica(0);
-            Llamada llamada = colaHospital.front();
-            colaHospital.pop();
-            salirSeccionCritica(0);
+Llamada generarLlamadaAleatoria(int id)
+{
+    int i = rand() % 9;
+    unsigned int deptoCentral = 0;
+    Prioridad p = asignarPrioridadYCentrales(static_cast<Incidentes>(i), deptoCentral);
 
-            string mensaje =
-                "[Hospital] ID: " + to_string(llamada.idLlamada) + 
-                " | Ambulancia enviada";
-            cout << "\n" << mensaje;
-            registrar(mensaje);    
-        }
-        this_thread::sleep_for(chrono::milliseconds(500));
+    Llamada ll;
+    ll.id = id;
+    ll.prioridad = p;
+    ll.Centralesbits = deptoCentral;
+    int probabilidadTipo = rand() % 10; // Genera un número de 0 a 9
+    if (probabilidadTipo < 9)
+    {
+        ll.tipo = Nacional; // 90% de los casos (0, 1, 2, 3, 4, 5, 6, 7, 8)
     }
-}
-
-//Método para la recepción de las llamadas en la Comisaría
-void recepcionComisaria(){
-    while(true){
-        if(!colaComisaría.empty()){
-            entrarSeccionCritica(1);
-            Llamada llamada = colaComisaría.front();
-            colaComisaría.pop();
-            salirSeccionCritica(1);
-
-            string mensaje =
-                "[Comisaria] ID: " + to_string(llamada.idLlamada) + 
-                " | Patrulla enviada";
-            cout << "\n" << mensaje;
-            registrar(mensaje);    
-        }
-        this_thread::sleep_for(chrono::milliseconds(500));
+    else
+    {
+        ll.tipo = Internacional; // 10% de los casos ( 9)
     }
+
+    ll.linea_telefonica = static_cast<Linea>(rand() % 3);
+    ll.zona_llamada = static_cast<zona>(rand() % 2);
+    ll.refuerzos_llamada = static_cast<refuerzos>(rand() % 2);
+
+    string desc = "Incidente: " + nombre_incidentes[i] + " (Línea: " + nombre_linea[ll.linea_telefonica] + ")";
+    strncpy(ll.descripcion, desc.c_str(), sizeof(ll.descripcion));
+
+    return ll;
 }
 
-//Cola y variables propias para la sección crítica con Dekker (Forense)
-bool banderaDekker[2] = {false, false};
-int turnoDekker = 0;
- 
-//Métodos para la Sección Crítica usando el algoritmo de Dekker
-void entrarSeccionCriticaDekker(int i){
-    int j = 1 - i;
-    banderaDekker[i] = true;
-    while(banderaDekker[j]){
-        if(turnoDekker == j){
-            banderaDekker[i] = false;
-            while(turnoDekker == j);
-            banderaDekker[i] = true;
-        }
+int main()
+{
+    cout << "BIENVENIDO AL SISTEMA DE EMERGENCIAS UVI UNAH" << endl;
+    cout << "----------------------------------------------------------------------" << endl;
+
+    srand(static_cast<unsigned>(time(nullptr)));
+
+    ofstream RecursoCompartido("logs_uvi.txt", ios::app);
+    if (!RecursoCompartido.is_open())
+    {
+        cerr << "Error al abrir el archivo de logs." << endl;
+        return 1;
     }
-}
- 
-void salirSeccionCriticaDekker(int i){
-    turnoDekker = 1 - i;
-    banderaDekker[i] = false;
-}
- 
-//Método para la recepción de las llamadas en Forense (usando Dekker)
-void recepcionForense(){
-    while(true){
-        if(!colaForense.empty()){
-            entrarSeccionCriticaDekker(0);
-            Llamada llamada = colaForense.front();
-            colaForense.pop();
-            salirSeccionCriticaDekker(0);
- 
-            string mensaje =
-                "[Forense] ID: " + to_string(llamada.idLlamada) + 
-                " | Equipo forense enviado";
-            cout << "\n" << mensaje;
-            registrar(mensaje);    
-        }
-        this_thread::sleep_for(chrono::milliseconds(500));
+
+    key_t clave_sem = ftok("/bin", 65);
+    key_t clave_shm = ftok("/bin", 66);
+
+    int sem_id = semget(clave_sem, 2, 0666 | IPC_CREAT);
+    int shm_id = shmget(clave_shm, sizeof(MonitorCentrales), 0666 | IPC_CREAT);
+
+    if (sem_id == -1 || shm_id == -1)
+    {
+        cerr << "Error al inicializar los recursos IPC del sistema." << endl;
+        return 1;
     }
-}
 
-//Método principal
-int main(){
-    registrar("===== Inicio del Sistema UVI ====");
-    thread t1(centralUVI, 0);
-    thread t2(centralUVI, 1);
-    thread hospital(recepcionHospital);
-    thread comisaria(recepcionComisaria);
-    thread forense(recepcionForense);
+    union semun init;
+    init.val = 1;
+    semctl(sem_id, SEM_COLA, SETVAL, init);
+    semctl(sem_id, SEM_MONITOR, SETVAL, init);
 
+    MonitorCentrales *monitor = (MonitorCentrales *)shmat(shm_id, NULL, 0);
+    monitor->sizeComisaria = 0;
+    monitor->sizeHospital = 0;
+    monitor->sizeForense = 0;
 
-    t1.join();
-    t2.join();
+    priority_queue<Llamada> colaPrioridadGeneral;
 
-    hospital.detach();
-    comisaria.detach();
-    forense.detach();
+    pid_t pid = fork();
 
-    registrar("===== Final del Sistema UVI ====");
+    if (pid == -1)
+    {
+        cerr << "Error al ejecutar fork." << endl;
+        return 1;
+    }
 
-    cout << "\nSistema FInalizado\n";
+    if (pid == 0)
+    {
+        // operador 2
+        for (int i = 0; i < 10; ++i)
+        {
+            Llamada nuevaLlamada;
+
+            sem_wait(sem_id, SEM_COLA);
+            nuevaLlamada = generarLlamadaAleatoria(rand() % 9000 + 1000);
+            colaPrioridadGeneral.push(nuevaLlamada);
+            sem_signal(sem_id, SEM_COLA);
+
+            usleep(100000);
+
+            sem_wait(sem_id, SEM_COLA);
+            if (!colaPrioridadGeneral.empty())
+            {
+                Llamada ll = colaPrioridadGeneral.top();
+                colaPrioridadGeneral.pop();
+                sem_signal(sem_id, SEM_COLA);
+
+                monitor->procesarLlamada(ll, 2, sem_id, RecursoCompartido);
+            }
+            else
+            {
+                sem_signal(sem_id, SEM_COLA);
+            }
+
+            sleep(1);
+        }
+        shmdt(monitor);
+        exit(0);
+    }
+    else
+    {
+        for (int i = 0; i < 10; ++i)
+        {
+            Llamada nuevaLlamada;
+
+            sem_wait(sem_id, SEM_COLA);
+            nuevaLlamada = generarLlamadaAleatoria(rand() % 9000 + 1000);
+            colaPrioridadGeneral.push(nuevaLlamada);
+            sem_signal(sem_id, SEM_COLA);
+
+            usleep(100000);
+
+            sem_wait(sem_id, SEM_COLA);
+            if (!colaPrioridadGeneral.empty())
+            {
+                Llamada ll = colaPrioridadGeneral.top();
+                colaPrioridadGeneral.pop();
+                sem_signal(sem_id, SEM_COLA);
+
+                monitor->procesarLlamada(ll, 1, sem_id, RecursoCompartido);
+            }
+            else
+            {
+                sem_signal(sem_id, SEM_COLA);
+            }
+
+            sleep(1);
+        }
+
+        wait(nullptr);
+
+        monitor->mostrarEstadisticas();
+
+        RecursoCompartido.close();
+        shmdt(monitor);
+        shmctl(shm_id, IPC_RMID, NULL);
+        semctl(sem_id, 0, IPC_RMID);
+
+        cout << "Proceso e IPCs finalizados limpiamente." << endl;
+    }
 
     return 0;
-
-
 }
