@@ -1,9 +1,7 @@
-# Sistemas-Operativos-
-````markdown
 # Exposición: Sistema de Emergencias UVI
 ## Sistemas Operativos
 
----
+
 
 # Introducción
 
@@ -20,8 +18,6 @@ Este proyecto simula un **Sistema de Emergencias UVI**, cuyo propósito es demos
 
 Aunque el programa representa un sistema de atención de emergencias, su verdadero objetivo es demostrar cómo varios procesos pueden trabajar de forma concurrente compartiendo recursos de manera segura.
 
----
-
 # PARTE 1. Arquitectura General del Sistema
 
 ## ¿Qué representa el programa?
@@ -29,9 +25,9 @@ Aunque el programa representa un sistema de atención de emergencias, su verdade
 Este programa simula un Sistema de Emergencias donde existen cuatro entidades principales:
 
 - Operadores Telefónicos
-- Comisaría
-- Hospital
-- Medicina Forense
+-  Central Comisaría
+-  Central Hospital
+-  Central Medicina Forense
 
 Todos estos procesos trabajan concurrentemente como sucede en un sistema operativo real.
 
@@ -43,27 +39,52 @@ Los operadores producen llamadas.
 
 Las centrales consumen las llamadas.
 
----
+
 
 ## Arquitectura General
 
-``` Diagrama de Programa
-                +----------------------+
-                |  Proceso Principal   |
-                +----------+-----------+
-                           |
-          -------------------------------------
-          |                                   |
-   Crea operadores                    Crea centrales
-          |                                   |
-    +-----------+                     +-----------------------+
-    |Operador 1 |                     | Comisaría             |
-    |Operador 2 |                     | Hospital              |
-    +-----------+                     | Forense               |
-                                      +-----------------------+
-```
 
----
+// ================================================================
+//              ARQUITECTURA GENERAL DEL PROGRAMA
+//
+//                    Proceso Padre
+//                          │
+//          ┌───────────────┴───────────────┐
+//          │                               │
+//    Operador 1                      Operador 2
+//          │                               │
+//          └───────────────┬───────────────┘
+//                          │
+//                 Memoria Compartida
+//                          │
+//          ┌───────────────┼───────────────┐
+//          │               │               │
+//      Comisaría       Hospital       Forense
+//
+// ================================================================
+
+## DIAGRAMA DE SEMAFOROS  FUNCIONAMIENTO
+// SEM_MONITOR = 1
+//
+// Operador 1
+//      |
+//      | sem_wait()
+//      v
+// SEM_MONITOR = 0
+//
+// Operador 2 intenta entrar
+//      |
+//      v
+// BLOQUEADO
+//
+// Operador 1 termina
+//      |
+//      | sem_signal()
+//      v
+// SEM_MONITOR = 1
+//
+// Operador 2 entra
+
 
 # Procesos del Sistema
 
@@ -71,7 +92,7 @@ Las centrales consumen las llamadas.
 
 Existe un único proceso principal.
 
-Su función es:
+Su función es: 
 
 - Crear todos los procesos
 - Crear la memoria compartida
@@ -85,18 +106,17 @@ No genera llamadas.
 
 Es únicamente el administrador.
 
----
+
 
 ## Procesos Operadores
 
 El programa crea dos operadores.
 
-```cpp
+
 for (int op = 0; op < 2; op++)
 {
     pid_t pid = fork();
 }
-```
 
 Cada operador genera llamadas aleatorias.
 
@@ -243,7 +263,7 @@ Contiene:
 
 ## Representación
 
-```text
+
             MEMORIA COMPARTIDA
 
 +------------------------------------+
@@ -265,7 +285,7 @@ Historial Forense
 centralActiva
 
 +------------------------------------+
-```
+
 
 Todos los procesos modifican esta estructura.
 
@@ -707,3 +727,4 @@ Este proyecto constituye un ejemplo práctico del uso de:
 - Finalización Ordenada
 - Administración de Recursos por parte del Sistema Operativo.
 ````
+
