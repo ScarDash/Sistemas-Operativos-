@@ -43,8 +43,9 @@ Las centrales consumen las llamadas.
 
 ## Arquitectura General
 
+```text
 
-// ================================================================
+===================================================
 //              ARQUITECTURA GENERAL DEL PROGRAMA
 //
 //                    Proceso Padre
