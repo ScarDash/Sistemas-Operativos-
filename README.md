@@ -1,3 +1,4 @@
+````markdown
 # Exposición: Sistema de Emergencias UVI
 ## Sistemas Operativos
 
@@ -43,9 +44,8 @@ Las centrales consumen las llamadas.
 
 ## Arquitectura General
 
-```text
 
-===================================================
+// ================================================================
 //              ARQUITECTURA GENERAL DEL PROGRAMA
 //
 //                    Proceso Padre
@@ -728,4 +728,3 @@ Este proyecto constituye un ejemplo práctico del uso de:
 - Finalización Ordenada
 - Administración de Recursos por parte del Sistema Operativo.
 ````
-
